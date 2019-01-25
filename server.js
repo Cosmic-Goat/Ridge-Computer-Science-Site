@@ -4,8 +4,9 @@ const express = require('express')
 const app = express()
 const { execSync } = require('child_process')
 const bodyParser = require('body-parser')
+const path = require('path')
 
-var assets = require('./assets');
+const assets = require('./assets');
 
 // Use relative /assets folder to allow .jar files to be accessed.
 
