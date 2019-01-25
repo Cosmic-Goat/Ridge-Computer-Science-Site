@@ -5,6 +5,22 @@ const app = express()
 const { execSync } = require('child_process')
 const bodyParser = require('body-parser')
 
+var assets = require('./assets');
+
+// Use relative /assets folder to allow .jar files to be accessed.
+
+// http://expressjs.com/en/starter/static-files.html
+app.use(express.static('public'));
+
+app.use("/assets", assets);
+
+// http://expressjs.com/en/starter/basic-routing.html
+app.get("/", function (request, response) {
+  response.sendFile(__dirname + '/views/index.html');
+});
+
+
+// Git deploy functionality
 app.use(bodyParser.json())
 
 app.get('/', (request, response) => {
@@ -33,6 +49,7 @@ app.post('/deploy', (request, response) => {
   console.log(output)
   response.status(200).send()
 })
+
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function () {
